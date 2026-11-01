@@ -1,0 +1,2398 @@
+/* ==========================================================================
+   HemoConnect ScholarFind Theme - Design Language
+   Colors: Dark Navy Sidebar (#0F172A), White Canvas (#FFFFFF), Light Grey (#F8FAFC),
+   Main Headings (#142D4E), Section Headings (#2457A7), Field Labels (#087E8B),
+   Information Values (#292F36), Primary Blue (#2563EB), Emergency Red (#DC2626)
+   ========================================================================== */
+
+:root {
+  /* HemoConnect Strict Colour Hierarchy (Academic Standard) */
+  --heading-main: #142D4E;       /* Deep navy blue for main page titles */
+  --heading-section: #2457A7;    /* Royal blue for section headings */
+  --field-label: #087E8B;        /* Dark teal for all field labels */
+  --info-value: #292F36;         /* Dark charcoal for actual information and values */
+  --text-muted: #64748B;         /* Supporting descriptions & muted slate grey */
+  --status-success: #059669;     /* Success statuses (Green) */
+  --status-pending: #D97706;     /* Pending / resting statuses (Amber/orange) */
+  --status-emergency: #DC2626;   /* Emergency and critical alerts (Red) */
+  --btn-primary: #2563EB;        /* Primary action buttons (Professional blue) */
+  --btn-primary-hover: #1D4ED8;
+
+  --sidebar-bg: #0F172A;
+  --sidebar-border: #1E293B;
+  --sidebar-text: #94A3B8;
+  --sidebar-text-hover: #FFFFFF;
+  --sidebar-active-bg: #2563EB;
+  --sidebar-active-text: #FFFFFF;
+  --canvas-bg: #F8FAFC;
+  --card-bg: #FFFFFF;
+  --border-color: #E2E8F0;
+  --text-primary: #292F36;
+  --text-secondary: #475569;
+  --primary-blue: #2563EB;
+  --primary-blue-hover: #1D4ED8;
+  --emergency-red: #DC2626;
+  --emergency-red-hover: #B91C1C;
+  --success-emerald: #059669;
+
+  --sidebar-width-expanded: 260px;
+  --sidebar-width-minimized: 72px;
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--canvas-bg);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------------- App Shell Layout ---------------- */
+.scholarfind-app-shell {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+  background-color: var(--canvas-bg);
+}
+
+/* ---------------- Persistent Left Sidebar ---------------- */
+.scholarfind-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+  background-color: var(--sidebar-bg);
+  border-right: 1px solid var(--sidebar-border);
+  display: flex;
+  flex-direction: column;
+  transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.scholarfind-sidebar.expanded {
+  width: var(--sidebar-width-expanded);
+}
+
+.scholarfind-sidebar.collapsed {
+  width: var(--sidebar-width-minimized);
+}
+
+/* Sidebar Top Bar with Plain Text Brand and Minimize/Expand Button */
+.sidebar-top-bar {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--sidebar-border);
+}
+
+.sidebar-brand-text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.sidebar-brand-collapsed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.hemo-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.hemo-logo-img-collapsed {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  margin: 0 auto;
+}
+
+.brand-plain {
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+.header-brand-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  margin-right: 12px;
+}
+
+.header-brand-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  letter-spacing: -0.02em;
+}
+
+.header-divider {
+  width: 1px;
+  height: 22px;
+  background-color: var(--slate-200);
+  margin-right: 14px;
+}
+
+.sidebar-toggle-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+
+.sidebar-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* Navigation Section Label */
+.sidebar-section-label {
+  padding: 20px 18px 8px 18px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* Sidebar Navigation Items */
+.sidebar-nav-list {
+  flex: 1;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sidebar-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--sidebar-text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-align: left;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+}
+
+.sidebar-nav-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--sidebar-text-hover);
+}
+
+.sidebar-nav-btn.active {
+  background: var(--sidebar-active-bg) !important;
+  color: var(--sidebar-active-text) !important;
+  font-weight: 600;
+}
+
+.sidebar-nav-btn.active .nav-icon {
+  color: #ffffff !important;
+}
+
+.nav-icon {
+  flex-shrink: 0;
+}
+
+.text-red-accent {
+  color: #ef4444 !important;
+}
+
+/* Collapsed view adjustments */
+.scholarfind-sidebar.collapsed .sidebar-top-bar {
+  justify-content: center;
+  padding: 0;
+}
+
+.scholarfind-sidebar.collapsed .sidebar-nav-btn {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+/* Sidebar Footer / Logout */
+.sidebar-footer-section {
+  padding: 12px 10px;
+  border-top: 1px solid var(--sidebar-border);
+}
+
+.sidebar-logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  background: rgba(239, 68, 68, 0.08);
+  color: #ef4444;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sidebar-logout-btn:hover {
+  background: rgba(239, 68, 68, 0.16);
+}
+
+.scholarfind-sidebar.collapsed .sidebar-logout-btn {
+  justify-content: center;
+  padding: 12px 0;
+}
+
+/* ---------------- Main Canvas ---------------- */
+.scholarfind-main-canvas {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-expanded .scholarfind-main-canvas {
+  margin-left: var(--sidebar-width-expanded);
+}
+
+.sidebar-minimized .scholarfind-main-canvas {
+  margin-left: var(--sidebar-width-minimized);
+}
+
+/* ---------------- Minimal Top Header ---------------- */
+.scholarfind-top-header {
+  height: var(--header-height);
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: sticky;
+  top: 0;
+  z-index: 90;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--text-primary);
+}
+
+.header-page-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.header-icon-btn {
+  position: relative;
+  background: #f1f5f9;
+  border: 1px solid var(--border-color);
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 8px;
+  background-color: var(--emergency-red);
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+}
+
+.header-user-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-user-badge {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 4px 10px;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+}
+
+.user-avatar-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--primary-blue);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-details-mini {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.user-display-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.user-role-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-transform: uppercase;
+}
+
+.btn-header-logout {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background: #ffffff;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-header-logout:hover {
+  background: #fee2e2;
+  border-color: #fecaca;
+  color: var(--emergency-red);
+}
+
+.header-auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-header-login {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-header-register {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  border-radius: 20px;
+  background: var(--primary-blue);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.btn-header-register:hover {
+  background: var(--primary-blue-hover);
+}
+
+/* ---------------- Page Content Wrapper ---------------- */
+.scholarfind-page-content {
+  flex: 1;
+  padding: 28px;
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ---------------- ScholarFind Visual Elements ---------------- */
+.scholarfind-welcome-banner {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.welcome-heading {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: var(--heading-main);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.welcome-description {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  max-width: 860px;
+  line-height: 1.6;
+}
+
+/* Stat Cards Row */
+.scholarfind-stats-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.scholarfind-stat-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px 22px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stat-icon-wrap {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-blue { background: #eff6ff; color: #2563eb; }
+.icon-emerald { background: #ecfdf5; color: #059669; }
+.icon-indigo { background: #eef2ff; color: #4f46e5; }
+.icon-red { background: #fef2f2; color: #dc2626; }
+.icon-amber { background: #fffbeb; color: #d97706; }
+
+.stat-number {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--info-value);
+  letter-spacing: -0.02em;
+}
+
+.stat-number.stat-date {
+  font-size: 1.15rem;
+}
+
+.stat-number.stat-badge {
+  font-size: 0.85rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.status-active {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.status-resting {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.stat-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--field-label);
+}
+
+/* Section Card */
+.scholarfind-section-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px 28px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card-heading-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.card-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--heading-section);
+  letter-spacing: -0.01em;
+}
+
+.card-section-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.scholarfind-link-action {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+.scholarfind-link-action:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- ScholarFind Action Buttons ---------------- */
+.scholarfind-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.scholarfind-btn-primary:hover {
+  background-color: var(--primary-blue-hover);
+}
+
+.scholarfind-btn-primary.btn-sm {
+  padding: 7px 14px;
+  font-size: 0.82rem;
+}
+
+.btn-emergency-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--emergency-red);
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-emergency-action:hover {
+  background-color: var(--emergency-red-hover);
+}
+
+.btn-secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f1f5f9;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  padding: 11px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary-action:hover {
+  background-color: #e2e8f0;
+}
+
+/* ---------------- Action Tiles Grid ---------------- */
+.scholarfind-action-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.action-tile-item {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.action-tile-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.action-tile-content h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.action-tile-content p {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* ---------------- Form Elements & Inputs ---------------- */
+.scholarfind-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.scholarfind-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--field-label);
+}
+
+.input-box-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-field-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.scholarfind-input {
+  width: 100%;
+  padding: 11px 14px 11px 40px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.scholarfind-input:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.scholarfind-input.select-input {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+}
+
+.password-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-password-btn {
+  background: none;
+  border: none;
+  color: var(--primary-blue);
+  font-size: 0.82rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.toggle-password-btn:hover {
+  text-decoration: underline;
+}
+
+.form-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-grid-2col-nested {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
+.form-grid-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* ---------------- Auth Pages (ScholarFind Exact Match) ---------------- */
+.scholarfind-auth-page {
+  min-height: calc(100vh - var(--header-height) - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 16px;
+}
+
+.auth-card-container {
+  width: 100%;
+  max-width: 480px;
+}
+
+.register-card-container {
+  max-width: 640px;
+}
+
+.scholarfind-auth-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 36px 34px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+}
+
+.auth-header-block {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.auth-main-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+}
+
+.auth-main-subtitle {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* Pill Tabs for Roles (ScholarFind Image 1) */
+.auth-tabs-pill {
+  display: flex;
+  background: #f1f5f9;
+  padding: 4px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  gap: 4px;
+}
+
+.auth-tab-btn {
+  flex: 1;
+  padding: 9px 8px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.auth-tab-btn.active {
+  background: #ffffff;
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* Sub-banner Portal Indicator */
+.portal-sub-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-bottom: 22px;
+  font-size: 0.82rem;
+}
+
+.portal-banner-tag {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.portal-banner-switch {
+  background: none;
+  border: none;
+  color: var(--primary-blue);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.portal-banner-switch:hover {
+  text-decoration: underline;
+}
+
+.auth-error-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: var(--emergency-red);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  margin-bottom: 18px;
+}
+
+.auth-card-footer {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--text-muted);
+}
+
+.auth-link-bold {
+  color: var(--primary-blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-link-bold:hover {
+  text-decoration: underline;
+}
+
+/* ---------------- Interactive Geographical Map & Leaflet ---------------- */
+.interactive-geographical-map-card {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.map-toolbar {
+  padding: 12px 18px;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.map-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.map-toolbar-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.map-facility-count-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #eff6ff;
+  color: var(--primary-blue);
+  border: 1px solid #dbeafe;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.map-toolbar-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.map-filter-select {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.map-zoom-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.map-ctrl-btn {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+.map-ctrl-btn:hover {
+  background: #f1f5f9;
+  color: var(--text-primary);
+}
+
+.leaflet-map-wrapper {
+  position: relative;
+}
+
+.leaflet-map-surface {
+  z-index: 10;
+}
+
+.map-floating-legend {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 30;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.legend-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.legend-pin {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.blue-pin { background: #2563eb; }
+.red-pin { background: #dc2626; }
+.amber-pin { background: #d97706; }
+
+/* Custom Leaflet Marker Pins */
+.custom-marker {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  border: 2px solid #ffffff;
+}
+
+.custom-marker span {
+  transform: rotate(45deg);
+  font-size: 10px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.hospital-marker { background-color: #2563eb; }
+.blood-bank-marker { background-color: #dc2626; }
+.emergency-marker { background-color: #d97706; }
+
+/* Map Popups */
+.map-popup-card {
+  min-width: 220px;
+  max-width: 280px;
+  font-family: inherit;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.popup-category-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.popup-24x7 {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.popup-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.popup-address {
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.popup-location {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.popup-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+
+.popup-chip {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #f1f5f9;
+  color: #1e293b;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.popup-call-link {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 6px 10px;
+  background: #2563eb;
+  color: #ffffff !important;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Active Facility Bottom Banner */
+.active-facility-banner {
+  padding: 12px 18px;
+  background: #f8fafc;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.facility-banner-details {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.facility-banner-tag {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  text-transform: uppercase;
+}
+
+.facility-banner-details strong {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+.facility-banner-details p {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.facility-banner-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------------- Emergency Helplines Banner ---------------- */
+.emergency-sos-helplines-banner {
+  background: #ffffff;
+  border: 1px solid #fecaca;
+  border-left: 4px solid var(--emergency-red);
+  border-radius: 10px;
+  padding: 18px 22px;
+  box-shadow: 0 1px 3px rgba(220, 38, 38, 0.05);
+}
+
+.helpline-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--emergency-red);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.sos-pulse-ring {
+  width: 9px;
+  height: 9px;
+  background-color: var(--emergency-red);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+}
+
+.helplines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+
+.helpline-box {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
+.hl-number {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--emergency-red);
+}
+
+.hl-desc {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* ---------------- Cards Grid Layouts ---------------- */
+.emergency-cards-grid,
+.donors-cards-grid,
+.hospitals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+}
+
+/* Emergency SOS Card */
+.sos-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sos-card.urgency-critical {
+  border-left: 4px solid var(--emergency-red);
+}
+
+.sos-card.urgency-urgent {
+  border-left: 4px solid #ea580c;
+}
+
+.sos-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.urgency-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 20px;
+  background: #fee2e2;
+  color: var(--emergency-red);
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--emergency-red);
+  border-radius: 50%;
+}
+
+.sos-time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.sos-patient-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.patient-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.units-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.sos-hospital-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.detail-line {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.sos-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.btn-emergency-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-blue);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.btn-emergency-call:hover {
+  background: var(--primary-blue-hover);
+}
+
+/* Donor Card */
+.donor-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.donor-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.donor-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.donor-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.donor-loc {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.status-online {
+  background: #ecfdf5;
+  color: #059669;
+}
+
+.status-online .dot {
+  width: 6px;
+  height: 6px;
+  background: #059669;
+  border-radius: 50%;
+}
+
+.status-offline {
+  background: #fffbeb;
+  color: #d97706;
+}
+
+.status-offline .dot {
+  width: 6px;
+  height: 6px;
+  background: #d97706;
+  border-radius: 50%;
+}
+
+.donor-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 12px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 14px;
+}
+
+.meta-label {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--field-label);
+}
+
+.meta-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--info-value);
+}
+
+.btn-contact-donor {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  background: var(--primary-blue);
+  color: #ffffff;
+  padding: 9px;
+  border-radius: 6px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-contact-donor:hover {
+  background: var(--primary-blue-hover);
+}
+
+/* Hospital Card */
+.hospital-card {
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.hosp-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.category-pill {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: #eff6ff;
+  color: var(--primary-blue);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.badge-24x7 {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #059669;
+}
+
+.hospital-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.hosp-address-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.hosp-location-chips {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.chip {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: #f1f5f9;
+  color: var(--text-secondary);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.hosp-blood-groups {
+  margin-bottom: 14px;
+}
+
+.bg-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.groups-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.mini-bg-chip {
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  padding: 2px 6px;
+  border-radius: 3px;
+  color: var(--text-primary);
+}
+
+.btn-call-hosp {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary-blue);
+  color: #ffffff;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* ---------------- View Mode Toggle Group ---------------- */
+.view-mode-toggle-group {
+  display: flex;
+  background: #f1f5f9;
+  padding: 3px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.btn-view-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-view-toggle.active {
+  background: #ffffff;
+  color: var(--text-primary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------------- Footer ---------------- */
+.scholarfind-footer {
+  margin-top: auto;
+  background: #ffffff;
+  border-top: 1px solid var(--border-color);
+  padding: 40px 28px 24px 28px;
+}
+
+.footer-inner-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr;
+  gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto 32px auto;
+}
+
+.brand-plain-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.footer-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  line-height: 1.6;
+}
+
+.footer-col h4 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.footer-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+.footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: var(--primary-blue);
+}
+
+.footer-notice-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.footer-copyright-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 20px;
+  border-top: 1px solid #f1f5f9;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-shield-tags {
+  display: flex;
+  gap: 12px;
+}
+
+.badge-shield {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---------------- Responsive Styles ---------------- */
+@media (max-width: 1024px) {
+  .header-menu-toggle {
+    display: flex;
+  }
+
+  .scholarfind-sidebar {
+    transform: translateX(-100%);
+  }
+
+  .scholarfind-sidebar.expanded {
+    transform: translateX(0);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.25);
+  }
+
+  .scholarfind-main-canvas {
+    margin-left: 0 !important;
+  }
+
+  .footer-inner-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .scholarfind-page-content {
+    padding: 16px;
+  }
+
+  .form-grid-2col,
+  .form-grid-3col,
+  .form-grid-2col-nested {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-inner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-copyright-row {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+/* ==========================================================================
+   DONOR & SEEKER ENHANCED STYLING (HemoConnect Redesign)
+   ========================================================================== */
+
+/* Cooldown Banner */
+.cooldown-banner-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.cooldown-details {
+  flex: 1;
+  min-width: 280px;
+}
+
+.cooldown-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cooldown-status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.chip-eligible {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.chip-cooldown {
+  background: rgba(245, 158, 11, 0.12);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.cooldown-date-text {
+  font-size: 0.85rem;
+  color: var(--slate-600);
+}
+
+.cooldown-action {
+  flex-shrink: 0;
+}
+
+/* History Summary Box */
+.history-summary-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.summary-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.summary-num {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--slate-900);
+}
+
+.summary-lbl {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--slate-500);
+}
+
+/* Status Pill */
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.status-pill.status-active {
+  background: rgba(220, 38, 38, 0.12);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.25);
+}
+
+.status-pill.status-fulfilled {
+  background: rgba(16, 185, 129, 0.12);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.status-pill.status-cancelled {
+  background: rgba(100, 116, 139, 0.12);
+  color: #64748b;
+  border: 1px solid rgba(100, 116, 139, 0.25);
+}
+
+/* Status card overlays for completed requests */
+.sos-card.status-fulfilled {
+  border-left-color: #10b981;
+  opacity: 0.88;
+}
+
+.sos-card.status-cancelled {
+  border-left-color: #94a3b8;
+  opacity: 0.65;
+}
+
+/* Footer Actions in SOS Card */
+.sos-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.owner-status-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-status-fulfill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #059669;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-status-fulfill:hover {
+  background: #047857;
+}
+
+.btn-status-cancel {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.btn-status-cancel:hover {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+/* Profile Edit Form Styles */
+.profile-edit-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.scholarfind-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  color: var(--slate-700);
+  border: 1px solid var(--slate-300);
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.scholarfind-btn-secondary:hover {
+  background: var(--slate-50);
+  border-color: var(--slate-400);
+  color: var(--slate-900);
+}
+
+/* ==========================================================================
+   ACADEMIC HIGH-CONTRAST COLOUR HIERARCHY & COMPONENT STYLING
+   ========================================================================== */
+
+/* 1. Profile Details & Structured Two-Column Cards */
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.profile-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid var(--field-label);
+  border-radius: 8px;
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.profile-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.profile-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--field-label) !important; /* Dark teal #087E8B */
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.profile-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--info-value) !important; /* Dark charcoal #292F36 */
+  word-break: break-word;
+}
+
+/* 2. SOS Card & Hospital Card High Contrast Labels */
+.sos-info-line {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.sos-field-label,
+.hosp-field-label,
+.guideline-field-label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--field-label) !important; /* Dark teal #087E8B */
+  display: inline-block;
+}
+
+.sos-field-value,
+.guideline-field-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--info-value) !important; /* Dark charcoal #292F36 */
+}
+
+.hospital-title {
+  color: var(--heading-main);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.patient-name {
+  color: var(--heading-main);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.donor-name {
+  color: var(--heading-main);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+/* 3. High-Contrast Tables with Navy Headers */
+.history-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  background: #ffffff;
+  margin-top: 14px;
+}
+
+.scholarfind-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.9rem;
+}
+
+.scholarfind-table thead tr {
+  background-color: var(--heading-main) !important; /* Deep navy blue #142D4E */
+}
+
+.scholarfind-table th {
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 14px 16px;
+  border: none;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.scholarfind-table tbody tr {
+  background-color: #ffffff;
+  transition: background-color 0.15s;
+}
+
+.scholarfind-table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.scholarfind-table td {
+  padding: 14px 16px;
+  color: var(--info-value) !important; /* Dark charcoal #292F36 */
+  border-bottom: 1px solid #e2e8f0;
+  vertical-align: middle;
+}
+
+.scholarfind-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-donor-name {
+  font-weight: 700;
+  color: var(--heading-main);
+  font-size: 0.95rem;
+}
+
+.table-sub-detail {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* 4. Table Action Buttons */
+.btn-table-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-table-action.verify {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #10b981;
+}
+
+.btn-table-action.verify:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+.btn-table-action.revoke {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #f59e0b;
+}
+
+.btn-table-action.revoke:hover {
+  background: #d97706;
+  color: #ffffff;
+}
+
+.btn-status-reactivate {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #eff6ff;
+  color: #2563eb;
+  border: 1px solid #3b82f6;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-status-reactivate:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.admin-status-btn-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-role-seeker {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid #bae6fd;
+}
+
+.urgency-pill-table {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #fef2f2;
+  color: #dc2626;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid #fecaca;
+}
+
+/* 5. Admin Distribution Grid & Visual Breakdown */
+.admin-distribution-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 20px;
+}
+
+.blood-group-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.bg-metric-tile {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  transition: transform 0.15s;
+}
+
+.bg-metric-tile:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+}
+
+.bg-metric-badge {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  background: var(--heading-section); /* Royal blue */
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.bg-metric-count {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--heading-main); /* Deep navy */
+}
+
+.bg-metric-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--field-label); /* Dark teal */
+  text-transform: uppercase;
+}
+
+.state-requests-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.state-req-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+}
+
+.state-name {
+  font-size: 0.9rem;
+  color: var(--info-value);
+}
+
+.state-name strong {
+  color: var(--heading-main);
+}
+
+.state-count-chip {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #2563eb;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  padding: 3px 10px;
+  border-radius: 9999px;
+}
+
+/* 6. Admin Security & Password Box */
+.admin-password-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 22px;
+}
+
+.btn-toggle-show-pass {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  color: var(--field-label);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.btn-toggle-show-pass:hover {
+  text-decoration: underline;
+}
+
+.security-notice-panel {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 8px;
+  padding: 16px 20px;
+}
+
+.notice-title {
+  color: var(--heading-main);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+.notice-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.security-code {
+  display: inline-block;
+  background: #1e293b;
+  color: #38bdf8;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin: 6px 0;
+}
+
+
