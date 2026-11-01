@@ -17,7 +17,7 @@ const createAdminAccount = async () => {
 
     const adminEmail = process.argv[2] || 'admin@hemoconnect.org';
     const adminPassword = process.argv[3] || 'HemoAdmin2026!';
-    const adminName = 'HemoConnect Administrator';
+    const adminName = 'Sujithkodali';
 
     let user = await User.findOne({ email: adminEmail });
     if (user) {
