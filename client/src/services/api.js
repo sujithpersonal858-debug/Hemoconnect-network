@@ -566,6 +566,7 @@ const DEMO_REQUESTS = [
 
 export const api = {
   // Authentication
+  
   async register(data) {
     try {
       const res = await fetch(`${BASE_URL}/auth/register`, {
@@ -573,26 +574,28 @@ export const api = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+
       const json = await res.json();
-      if (!res.ok) throw new Error(json.message || 'Registration failed');
+
+      if (!res.ok) {
+        return {
+          success: false,
+          message: json.message || 'Registration failed'
+        };
+      }
+
       return json;
     } catch (err) {
-      console.warn('Backend not reached, session saved locally:', err.message);
-      const mockUser = {
-        id: 'user-' + Date.now(),
-        name: data.name,
-        email: data.email,
-        role: data.role || 'seeker',
-        phone: data.phone,
-        state: data.state,
-        district: data.district,
-        isVerified: true
+      console.error('Registration API error:', err);
+      return {
+        success: false,
+        message: 'Unable to connect to the server. Please try again.'
       };
-      const token = 'token_' + Date.now();
-      return { success: true, token, user: mockUser };
     }
   },
 
+
+ 
   async login(credentials) {
     try {
       const res = await fetch(`${BASE_URL}/auth/login`, {
@@ -600,62 +603,26 @@ export const api = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
       });
+
       const json = await res.json();
-      if (!res.ok) throw new Error(json.message || 'Login failed');
-      return json;
-    } catch (err) {
-      console.warn('Backend not reached, authenticating credentials locally:', err.message);
-      const email = credentials.email.toLowerCase();
-      if (email.includes('admin')) {
+
+      if (!res.ok) {
         return {
-          success: true,
-          token: 'jwt_admin_' + Date.now(),
-          user: {
-            id: 'admin-1',
-            name: 'HemoConnect Admin',
-            email: credentials.email,
-            role: 'admin',
-            phone: '+91 99999 00000',
-            state: 'Telangana',
-            district: 'Hyderabad',
-            isVerified: true
-          }
-        };
-      } else if (credentials.role === 'donor' || email.includes('donor')) {
-        const donorItem = DEMO_DONORS[0];
-        return {
-          success: true,
-          token: 'jwt_donor_' + Date.now(),
-          user: {
-            id: 'donor-1',
-            name: donorItem.user.name,
-            email: credentials.email,
-            role: 'donor',
-            phone: donorItem.user.phone,
-            state: donorItem.state,
-            district: donorItem.district,
-            isVerified: true
-          },
-          donorProfile: donorItem
-        };
-      } else {
-        return {
-          success: true,
-          token: 'jwt_seeker_' + Date.now(),
-          user: {
-            id: 'seeker-1',
-            name: credentials.email.split('@')[0],
-            email: credentials.email,
-            role: 'seeker',
-            phone: '+91 98765 43210',
-            state: 'Telangana',
-            district: 'Hyderabad',
-            isVerified: true
-          }
+          success: false,
+          message: json.message || 'Invalid email or password'
         };
       }
+
+      return json;
+    } catch (err) {
+      console.error('Login API error:', err);
+      return {
+        success: false,
+        message: 'Unable to connect to the server. Please try again.'
+      };
     }
   },
+
 
   async getMe() {
     try {
